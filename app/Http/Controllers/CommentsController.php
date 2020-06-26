@@ -16,7 +16,8 @@ $param = [
 "user_id" => $request->user_id, 
 "content" => $request->content, 
 "created_at" => $now,
-"updated_at" => $now ];
+"updated_at" => $now 
+];
 DB::insert('insert into comments (shares_id,user_id,content,created_at,updated_at) 
 values (:shares_id,:user_id,:content,:created_at,:updated_at)', $param);
 return response()->json(); 
