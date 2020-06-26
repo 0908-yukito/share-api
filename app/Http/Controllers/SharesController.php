@@ -40,19 +40,26 @@ class SharesController extends Controller
      * @param  \App\Shares  $shares
      * @return \Illuminate\Http\Response
      */
-    public function show(Shares $shares)
+    public function show($id)
     {
       $item = Shares::find($id);
-      $like = DB::table('likes')->where('shares_id', $id)->get(); $comment = DB::table('comments')->where('shares_id', $id)->get(); $comment_data = array();
+      $like = DB::table('likes')->where('shares_id', $id)->get(); 
+      $comment = DB::table('comments')->where('shares_id', $id)->get(); 
+      $comment_data = array();
       foreach ($comment as $value) {
-      $comment_user = DB::table('users')->where('id', $value->user_id)->get(); $comments = [
+      $comment_user = DB::table('users')->where('id', $value->user_id)->get(); 
+      $comments = [
       "comment" => $value,
-      "comments_user" => $comment_user ];
-      array_push($comment_data, $comments); }
-      $user = DB::table('users')->where('id', $item->user_id)->get(); $items = [
+      "comments_user" => $comment_user 
+    ];
+      array_push($comment_data, $comments); 
+    }
+      $user = DB::table('users')->where('id', $item->user_id)->get(); 
+      $items = [
       "item" => $item,
       "like" => $like,
-      "comments" => $comment_data, "name" => $user[0]->name,
+      "comments" => $comment_data, 
+      "name" => $user[0]->name,
 ];
       return response()->json($items);
 }
